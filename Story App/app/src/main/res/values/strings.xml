@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">MY STORY</string>
+    <string name="signup">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="isi">Isi Dulu</string>
+    <string name="message_welcome_page">Tempat di mana kisahmu menjadi inspirasi. Bagikan momen-momen berharga dalam aplikasi ini!</string>
+    <string name="title_welcome_page">Selamat datang di My Story!</string>
+    <string name="title_signup_page">Lengkapi data dirimu di bawah ini ya</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Masukkan dulu datamu ya</string>
+    <string name="title_login_page">Sudah siap untuk berbagi cerita?</string>
+    <string name="name">Nama</string>
+    <string name="message_main_page">Selamat Belajar di Dicoding.</string>
+    <string name="greeting">Halo %1$s,</string>
+    <string name="logout">Keluar</string>
+    <string name="description">Deskripsi</string>
+    <string name="date">11 Mei 2023</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="upload">Unggah</string>
+    <string name="maps">Maps</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+
+    <string name="add_new_story">Add New Story</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+</resources>
