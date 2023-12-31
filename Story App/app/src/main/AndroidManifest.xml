@@ -32,12 +32,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBHE7AosuWozY7T8xPPRscNKkpGYbqmaTA" />
+
         <activity
             android:name=".view.maps.MapsActivity"
             android:exported="false"
-            android:parentActivityName=".view.maps.MapsActivity"
-            android:label="@string/title_activity_maps" />
-
+            android:label="@string/title_activity_maps">
+        </activity>
         <activity
             android:name=".view.camera.CameraActivity"
             android:exported="false" />
@@ -48,10 +48,10 @@
             android:name=".view.signup.SignupButton"
             android:exported="false" />
         <activity
-            android:name=".view.cutomView.EmailEditText"
+            android:name=".view.customView.EmailEditText"
             android:exported="false" />
         <activity
-            android:name=".view.cutomView.PassEditText"
+            android:name=".view.customView.PassEditText"
             android:exported="false" />
         <activity
             android:name=".view.login.LoginButton"

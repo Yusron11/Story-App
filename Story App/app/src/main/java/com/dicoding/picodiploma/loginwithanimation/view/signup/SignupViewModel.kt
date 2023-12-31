@@ -1,6 +1,5 @@
 package com.dicoding.picodiploma.loginwithanimation.view.signup
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,9 +33,8 @@ class SignupViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-
+                TODO("Not yet implemented")
             }
-
         })
 
     }

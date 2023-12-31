@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.loginwithanimation.view.cutomView
+package com.dicoding.picodiploma.loginwithanimation.view.customView
 
 import android.content.Context
 import android.graphics.Canvas

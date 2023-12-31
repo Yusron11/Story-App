@@ -7,15 +7,12 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.picodiploma.loginwithanimation.data.pref.UserModel
 import com.dicoding.picodiploma.loginwithanimation.databinding.ActivityLoginBinding
 import com.dicoding.picodiploma.loginwithanimation.view.ViewModelFactory
 import com.dicoding.picodiploma.loginwithanimation.view.main.MainActivity
@@ -33,13 +30,21 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.isLoading.observe(this, {
-            showLoading(it)
-        })
-
         setupView()
         setupAction()
         playAnimation()
+
+        viewModel.loginSuccess.observe(this) {
+            showSuccessDialog()
+        }
+
+        viewModel.loginError.observe(this) { errorMessage ->
+            showFailureDialog(errorMessage)
+        }
+
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
     }
 
     private fun setupView() {
@@ -86,20 +91,6 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
 
             viewModel.loginUser(email, password)
-            viewModel.loginResult.observe(this) { result ->
-                if (result != null) {
-                    if (result.error == true) {
-                        result.message?.let { it1 -> Log.d("LoginActivity", it1) }
-                        Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show()
-                    } else{
-                        val token = result.loginResult?.token.toString()
-                        viewModel.saveSession(UserModel(email, token))
-                        showSuccessDialog()
-                    }
-                } else {
-                    binding.emailEditTextLayout.error = "Format Email tidak valid"
-                }
-            }
         }
     }
 
@@ -120,6 +111,18 @@ class LoginActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
+            }
+            create()
+            show()
+        }
+    }
+
+    private fun showFailureDialog(message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("Gagal Login")
+            setMessage(message)
+            setPositiveButton("OK") { _, _ ->
+
             }
             create()
             show()

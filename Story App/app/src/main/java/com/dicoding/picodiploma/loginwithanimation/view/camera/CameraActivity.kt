@@ -90,7 +90,6 @@ class CameraActivity : AppCompatActivity() {
         binding.edtDesc.addTextChangedListener {
             setLoginButtonEnable()
         }
-
     }
 
     private fun startGallery() {

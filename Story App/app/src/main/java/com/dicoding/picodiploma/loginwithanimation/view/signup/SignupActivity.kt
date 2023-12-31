@@ -29,15 +29,15 @@ class SignupActivity : AppCompatActivity() {
         setupAction()
         playAnimation()
 
-        viewModel.signupResponse.observe(this, { response ->
+        viewModel.signupResponse.observe(this) { response ->
             if (response != null) {
                 response.message?.let { showSuccessDialog(it) }
             }
-        })
+        }
 
-        viewModel.isLoading.observe(this, {
+        viewModel.isLoading.observe(this) {
             showLoading(it)
-        })
+        }
     }
 
     private fun setupView() {
@@ -90,7 +90,6 @@ class SignupActivity : AppCompatActivity() {
             show()
         }
     }
-
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {

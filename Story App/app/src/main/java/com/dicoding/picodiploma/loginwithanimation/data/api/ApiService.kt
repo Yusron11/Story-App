@@ -34,9 +34,9 @@ interface ApiService {
     ): Call<LoginResponse>
 
     @GET("stories")
-    suspend fun getStories(
+    fun getStories(
         @Header("Authorization") authorization: String,
-        @Query("page") page: Int = 1,
+        @Query("page") page: Int
     ): Call<StoryResponse>
 
     @Multipart

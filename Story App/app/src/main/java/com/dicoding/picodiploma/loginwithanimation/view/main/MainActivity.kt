@@ -23,6 +23,7 @@ import com.dicoding.picodiploma.loginwithanimation.view.camera.CameraActivity
 import com.dicoding.picodiploma.loginwithanimation.view.detail.DetailActivity
 import com.dicoding.picodiploma.loginwithanimation.view.maps.MapsActivity
 import com.dicoding.picodiploma.loginwithanimation.view.welcome.WelcomeActivity
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -50,9 +51,7 @@ class MainActivity : AppCompatActivity() {
                 setupView()
                 setupRecyclerView()
                 setupFab()
-                lifecycleScope.launch {
-                    loadAllStories()
-                }
+
             }
         }
     }
@@ -83,26 +82,13 @@ class MainActivity : AppCompatActivity() {
         binding.rvListStory.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = storyAdapter
+            viewModel.story.observe(this@MainActivity) {
+                storyAdapter.submitData(lifecycle, it)
+            }
         }
+
     }
 
-    private suspend fun loadAllStories() {
-        binding.pbListStory.visibility = View.VISIBLE
-
-        var page = 1
-        val allStories: MutableList<ListStoryItem> = mutableListOf()
-
-        while (true) {
-            val stories = viewModel.getStories(page) ?: break
-            if (stories.isEmpty()) break
-
-            allStories.addAll(stories)
-            page++
-        }
-        storyAdapter.submitList(allStories)
-
-        binding.pbListStory.visibility = View.GONE
-    }
 
     private fun setupFab() {
         binding.btnAddNewStory.setOnClickListener {
@@ -110,19 +96,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
                 viewModel.logout()
                 return true
             }
-
             R.id.mapsIcon -> {
                 startActivity(Intent(this, MapsActivity::class.java))
                 return true
             }
-
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
+
 }

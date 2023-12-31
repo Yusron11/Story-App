@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.loginwithanimation.view.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.dicoding.picodiploma.loginwithanimation.databinding.ListstoryBinding
 
 
 class StoryAdapter(private val onItemClick: (ListStoryItem) -> Unit) :
-    ListAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(StoryDiffCallback()) {
+    PagingDataAdapter<ListStoryItem, StoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
         val binding = ListstoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,7 +21,7 @@ class StoryAdapter(private val onItemClick: (ListStoryItem) -> Unit) :
 
     override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
         val story = getItem(position)
-        holder.bind(story)
+        story?.let { holder.bind(it) }
     }
 
     inner class StoryViewHolder(private val binding: ListstoryBinding) :
@@ -42,13 +43,14 @@ class StoryAdapter(private val onItemClick: (ListStoryItem) -> Unit) :
         }
     }
 
-    private class StoryDiffCallback : DiffUtil.ItemCallback<ListStoryItem>() {
-        override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
-            return oldItem == newItem
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
+            }
+            override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }

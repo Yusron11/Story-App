@@ -100,7 +100,7 @@
         android:alpha="0"
         tools:alpha="100">
 
-        <com.dicoding.picodiploma.loginwithanimation.view.cutomView.EmailEditText
+        <com.dicoding.picodiploma.loginwithanimation.view.customView.EmailEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
         android:alpha="0"
         tools:alpha="100">
 
-        <com.dicoding.picodiploma.loginwithanimation.view.cutomView.PassEditText
+        <com.dicoding.picodiploma.loginwithanimation.view.customView.PassEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

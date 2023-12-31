@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.dicoding.picodiploma.loginwithanimation.R
+
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -32,7 +33,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
@@ -56,24 +56,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
         lifecycleScope.launch {
             viewModel.getStoriesWithLocation(page = 1)?.let { stories ->
-                // Handle the list of stories, e.g., add markers to the map
+
                 for (story in stories) {
                     val location = LatLng(story.lat ?: 0.0, story.lon ?: 0.0)
                     mMap.addMarker(
                         MarkerOptions()
                             .position(location)
                             .title(story.name ?: "")
-                            .snippet(story.description ?: "") // Assuming you have a description property in ListStoryItem
+                            .snippet(story.description ?: "")
                     )
                 }
             }
         }
     }
-
 }
